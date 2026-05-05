@@ -26,7 +26,7 @@ export function Settings() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input label="Masjid Name" defaultValue="Al-Noor Masjid" />
+            <Input label="Masjid Name" defaultValue="MOSQLY Masjid" />
             <Input label="Contact Email" defaultValue="admin@alnoor.com" />
             <Input label="Phone Number" defaultValue="+1 234 567 8900" />
             <Input label="Address" defaultValue="123 Main St, City" />

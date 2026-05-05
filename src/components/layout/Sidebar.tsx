@@ -163,7 +163,7 @@ export function Sidebar({
           <MoonStar className="h-8 w-8 text-gold-500 mr-3" />
           <div>
             <span className="font-serif text-xl font-bold text-white tracking-wide block leading-tight">
-              Al-Noor
+              MOSQLY
             </span>
             {isGuardian &&
             <span className="text-[10px] uppercase tracking-wider text-gold-500">

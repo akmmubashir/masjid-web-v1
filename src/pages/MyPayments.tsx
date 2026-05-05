@@ -268,7 +268,7 @@ export function MyPayments() {
           <div className="space-y-4">
             <div className="text-center pb-4 border-b border-slate-200 dark:border-slate-800">
               <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
-                Al-Noor Masjid
+                MOSQLY Masjid
               </h3>
               <p className="text-xs text-slate-500 mt-1">
                 Receipt #{viewing.receiptNumber}

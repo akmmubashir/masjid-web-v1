@@ -5,8 +5,13 @@ import { useAuthStore } from '../stores';
 import { Button, Input, cn } from '../components/ui/Core';
 type LoginMode = 'admin' | 'guardian';
 export function Login() {
+  const defaultEmails: Record<LoginMode, string> = {
+    admin: 'admin@masjid.com',
+    guardian: 'tariq@example.com',
+  };
+
   const [mode, setMode] = useState<LoginMode>('admin');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(defaultEmails['admin']);
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuthStore();
@@ -43,7 +48,7 @@ export function Login() {
         <div className="relative z-10 text-center px-12">
           <MoonStar className="h-24 w-24 text-gold-500 mx-auto mb-8" />
           <h1 className="font-serif text-5xl font-bold text-white mb-4">
-            Al-Noor Masjid
+            MOSQLY Masjid
           </h1>
           <p className="text-masjid-200 text-lg max-w-md mx-auto">
             Comprehensive management system for our community. Manage houses,
@@ -57,7 +62,7 @@ export function Login() {
           <div className="lg:hidden text-center mb-8">
             <MoonStar className="h-12 w-12 text-masjid-800 dark:text-gold-500 mx-auto mb-4" />
             <h2 className="font-serif text-3xl font-bold text-slate-900 dark:text-white">
-              Al-Noor Masjid
+              MOSQLY Masjid
             </h2>
           </div>
 
@@ -74,7 +79,7 @@ export function Login() {
           <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg mb-6">
             <button
               type="button"
-              onClick={() => setMode('admin')}
+              onClick={() => { setMode('admin'); setEmail(defaultEmails['admin']); }}
               className={cn(
                 'flex items-center justify-center py-2 px-3 rounded-md text-sm font-medium transition-colors',
                 mode === 'admin' ?
@@ -86,7 +91,7 @@ export function Login() {
             </button>
             <button
               type="button"
-              onClick={() => setMode('guardian')}
+              onClick={() => { setMode('guardian'); setEmail(defaultEmails['guardian']); }}
               className={cn(
                 'flex items-center justify-center py-2 px-3 rounded-md text-sm font-medium transition-colors',
                 mode === 'guardian' ?
