@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import { DashboardShell } from './src/components/layout/DashboardShell';
+import { Login } from './src/pages/Login';
+import { Dashboard } from './src/pages/Dashboard';
+import { Houses } from './src/pages/Houses';
+import { HouseDetail } from './src/pages/HouseDetail';
+import { Payments } from './src/pages/Payments';
+import { Subscriptions } from './src/pages/Subscriptions';
+import { Announcements } from './src/pages/Announcements';
+import { Reports } from './src/pages/Reports';
+import { Users } from './src/pages/Users';
+import { Settings } from './src/pages/Settings';
+import { Notifications } from './src/pages/Notifications';
+import { MyDashboard } from './src/pages/MyDashboard';
+import { MyHouse } from './src/pages/MyHouse';
+import { MyProfile } from './src/pages/MyProfile';
+import { MyPayments } from './src/pages/MyPayments';
+export function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Toaster richColors position="top-right" />
+      <Routes>
+        <Route path="/login" element={<Login />} />
 
-export default App
+        <Route element={<DashboardShell />}>
+          {/* Admin routes */}
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/houses" element={<Houses />} />
+          <Route path="/houses/:id" element={<HouseDetail />} />
+          <Route path="/payments" element={<Payments />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/announcements" element={<Announcements />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/notifications" element={<Notifications />} />
+
+          {/* Guardian (house owner) routes */}
+          <Route path="/my" element={<MyDashboard />} />
+          <Route path="/my/house" element={<MyHouse />} />
+          <Route path="/my/payments" element={<MyPayments />} />
+          <Route path="/my/profile" element={<MyProfile />} />
+          <Route path="/my/announcements" element={<Announcements />} />
+          <Route path="/my/notifications" element={<Notifications />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>);
+
+}
