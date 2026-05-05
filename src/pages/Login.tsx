@@ -12,7 +12,7 @@ export function Login() {
 
   const [mode, setMode] = useState<LoginMode>('admin');
   const [email, setEmail] = useState(defaultEmails['admin']);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('Password');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuthStore();
   const navigate = useNavigate();
