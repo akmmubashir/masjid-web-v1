@@ -1,148 +1,50 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  Home,
-  CreditCard,
-  BookOpen,
-  Bell,
-  Megaphone,
-  FileText,
-  Users,
-  Settings,
-  MoonStar,
-  User as UserIcon } from
-'lucide-react';
+  LayoutDashboard, Home, CreditCard, BookOpen, Bell,
+  Megaphone, FileText, Users, Settings, MoonStar, User as UserIcon,
+} from 'lucide-react';
 import { cn } from '../ui/Core';
 import { useAuthStore } from '../../stores';
-const adminNav = [
-{
-  section: 'Overview',
-  items: [
-  {
-    name: 'Dashboard',
-    path: '/',
-    icon: LayoutDashboard
-  }]
-
-},
-{
-  section: 'Management',
-  items: [
-  {
-    name: 'Houses',
-    path: '/houses',
-    icon: Home
-  },
-  {
-    name: 'Our Subscription',
-    path: '/subscriptions',
-    icon: BookOpen
-  }]
-
-},
-{
-  section: 'Finance',
-  items: [
-  {
-    name: 'Payments',
-    path: '/payments',
-    icon: CreditCard
-  },
-  {
-    name: 'Reports',
-    path: '/reports',
-    icon: FileText
-  }]
-
-},
-{
-  section: 'Communication',
-  items: [
-  {
-    name: 'Announcements',
-    path: '/announcements',
-    icon: Megaphone
-  },
-  {
-    name: 'Notifications',
-    path: '/notifications',
-    icon: Bell
-  }]
-
-},
-{
-  section: 'System',
-  items: [
-  {
-    name: 'Users & Roles',
-    path: '/users',
-    icon: Users
-  },
-  {
-    name: 'Settings',
-    path: '/settings',
-    icon: Settings
-  }]
-
-}];
-
-const guardianNav = [
-{
-  section: 'Overview',
-  items: [
-  {
-    name: 'My Dashboard',
-    path: '/my',
-    icon: LayoutDashboard
-  }]
-
-},
-{
-  section: 'My Account',
-  items: [
-  {
-    name: 'My House',
-    path: '/my/house',
-    icon: Home
-  },
-  {
-    name: 'My Payments',
-    path: '/my/payments',
-    icon: CreditCard
-  },
-  {
-    name: 'Profile',
-    path: '/my/profile',
-    icon: UserIcon
-  }]
-
-},
-{
-  section: 'Updates',
-  items: [
-  {
-    name: 'Announcements',
-    path: '/my/announcements',
-    icon: Megaphone
-  },
-  {
-    name: 'Notifications',
-    path: '/my/notifications',
-    icon: Bell
-  }]
-
-}];
-
-export function Sidebar({
-  isOpen,
-  setIsOpen
-
-
-
-}: {isOpen: boolean;setIsOpen: (v: boolean) => void;}) {
+import { useT } from '../../lib/useT';
+export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v: boolean) => void }) {
   const { user, logout } = useAuthStore();
+  const t = useT();
   const isGuardian = user?.role === 'Guardian';
+
+  const adminNav = [
+    { section: 'Overview', items: [{ name: t.nav.dashboard, path: '/', icon: LayoutDashboard }] },
+    { section: 'Management', items: [
+      { name: t.nav.houses, path: '/houses', icon: Home },
+      { name: t.nav.subscriptions, path: '/subscriptions', icon: BookOpen },
+    ]},
+    { section: 'Finance', items: [
+      { name: t.nav.payments, path: '/payments', icon: CreditCard },
+      { name: t.nav.reports, path: '/reports', icon: FileText },
+    ]},
+    { section: 'Communication', items: [
+      { name: t.nav.announcements, path: '/announcements', icon: Megaphone },
+      { name: t.nav.notifications, path: '/notifications', icon: Bell },
+    ]},
+    { section: 'System', items: [
+      { name: t.nav.users, path: '/users', icon: Users },
+      { name: t.nav.settings, path: '/settings', icon: Settings },
+    ]},
+  ];
+
+  const guardianNav = [
+    { section: 'Overview', items: [{ name: t.nav.myDashboard, path: '/my', icon: LayoutDashboard }] },
+    { section: 'My Account', items: [
+      { name: t.nav.myHouse, path: '/my/house', icon: Home },
+      { name: t.nav.myPayments, path: '/my/payments', icon: CreditCard },
+      { name: t.nav.profile, path: '/my/profile', icon: UserIcon },
+    ]},
+    { section: 'Updates', items: [
+      { name: t.nav.announcements, path: '/my/announcements', icon: Megaphone },
+      { name: t.nav.notifications, path: '/my/notifications', icon: Bell },
+    ]},
+  ];
+
   const navItems = isGuardian ? guardianNav : adminNav;
   return (
     <>
@@ -165,11 +67,11 @@ export function Sidebar({
             <span className="font-serif text-xl font-bold text-white tracking-wide block leading-tight">
               MOSQLY
             </span>
-            {isGuardian &&
+            {isGuardian && (
             <span className="text-[10px] uppercase tracking-wider text-gold-500">
-                Guardian Portal
+                {t.nav.guardianPortal}
               </span>
-            }
+            )}
           </div>
         </div>
 
@@ -223,8 +125,7 @@ export function Sidebar({
             <button
               onClick={logout}
               className="text-masjid-400 hover:text-white text-xs">
-              
-              Logout
+              {t.common.logout}
             </button>
           </div>
         </div>
