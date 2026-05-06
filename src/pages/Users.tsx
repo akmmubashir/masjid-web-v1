@@ -189,7 +189,11 @@ export function Users() {
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-lg text-slate-900 dark:text-white flex items-center">
                       {role.name}
-                      {role.isSystem && <ShieldAlert className="h-4 w-4 ml-2 text-amber-500" title={t.users.systemRole} />}
+                      {role.isSystem && (
+                        <span title={t.users.systemRole}>
+                          <ShieldAlert className="h-4 w-4 ml-2 text-amber-500" />
+                        </span>
+                      )}
                     </h3>
                     <Badge variant="outline">{userCount} {t.users.user.toLowerCase()}s</Badge>
                   </div>

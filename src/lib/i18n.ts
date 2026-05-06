@@ -126,7 +126,6 @@ export const translations = {
       noGuardian: 'No guardian login linked.',
       inviteGuardian: 'Invite Guardian',
       sendPasswordReset: 'Send Password Reset',
-      contribution: 'Contribution',
     },
 
     // My House (Guardian)
@@ -524,7 +523,6 @@ export const translations = {
       noGuardian: 'ഗാർഡിയൻ ലോഗിൻ ലിങ്ക് ചെയ്തിട്ടില്ല.',
       inviteGuardian: 'ഗാർഡിയനെ ക്ഷണിക്കുക',
       sendPasswordReset: 'പാസ്‌വേഡ് റീസെറ്റ് അയക്കുക',
-      contribution: 'സംഭാവന',
     },
 
     // My House (Guardian)

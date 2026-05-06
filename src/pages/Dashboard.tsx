@@ -107,7 +107,7 @@ export function Dashboard() {
                       <p className="text-xs text-slate-500 mt-0.5">{house?.mahalHouseNumber} · Due {payment.dueDate}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-slate-900 dark:text-white">${payment.amount}</p>
+                      <p className="font-bold text-slate-900 dark:text-white">₹{payment.amount}</p>
                       <Badge variant={payment.status === 'Overdue' ? 'danger' : 'warning'} className="mt-1">
                         {payment.status}
                       </Badge>

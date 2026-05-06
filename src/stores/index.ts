@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {
   User, House, Payment, SaaSPlan, Announcement,
-  Role, Member, MasjidSubscription, SaaSInvoice,
+  Role, Member, MasjidSubscription, SaaSInvoice, RoleDefinition,
 } from '../lib/types';
 import { Language } from '../lib/i18n';
 import {
@@ -99,14 +99,6 @@ export const useThemeStore = create<ThemeState>()(
 );
 
 // ── App data store ───────────────────────────────────────────────────────────
-interface RoleDefinition {
-  id: string;
-  name: string;
-  description: string;
-  permissions: string[];
-  isSystem: boolean;
-}
-
 interface AppDataState {
   houses: House[];
   payments: Payment[];

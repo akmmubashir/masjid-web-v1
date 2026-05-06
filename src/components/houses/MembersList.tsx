@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Plus, Trash2, Edit2, X, Check } from 'lucide-react';
 import { Button, Input, Select, Badge } from '../ui/Core';
 import { Member, Relation } from '../../lib/types';
@@ -68,11 +68,11 @@ export function MembersList({
     if (!draft.name || !draft.age) return;
     const member: Member = {
       id: `m_${Date.now()}`,
-      name: draft.name!,
-      relation: draft.relation as Relation || 'Other',
+      name: draft.name ?? '',
+      relation: (draft.relation as Relation) || 'Other',
       age: Number(draft.age),
-      gender: draft.gender as 'Male' | 'Female' || 'Male',
-      phone: draft.phone
+      gender: (draft.gender as 'Male' | 'Female') || 'Male',
+      phone: draft.phone,
     };
     onAdd?.(member);
     setDraft(emptyMember);
@@ -164,7 +164,7 @@ export function MembersList({
                   onChange={(e) =>
                   setEditDraft({
                     ...editDraft,
-                    gender: e.target.value as any
+                    gender: e.target.value as 'Male' | 'Female'
                   })
                   }
                   className="h-8 text-sm" />
@@ -313,7 +313,7 @@ export function MembersList({
               onChange={(e) =>
               setDraft({
                 ...draft,
-                gender: e.target.value as any
+                gender: e.target.value as 'Male' | 'Female'
               })
               } />
             
