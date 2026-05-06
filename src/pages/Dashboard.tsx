@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Users as UsersIcon, DollarSign, AlertCircle, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Home, Users as UsersIcon, IndianRupeeIcon, AlertCircle, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, Badge, Button } from '../components/ui/Core';
 import { useAppStore } from '../stores';
@@ -25,7 +25,7 @@ export function Dashboard() {
   const stats = [
     { title: t.dashboard.totalHouses, value: activeHouses, icon: Home, trend: '+12%', positive: true },
     { title: t.dashboard.activeMembers, value: totalMembers, icon: UsersIcon, trend: '+5%', positive: true },
-    { title: t.dashboard.monthlyRevenue, value: `${expectedMonthlyRevenue}`, icon: DollarSign, trend: '+4.5%', positive: true },
+    { title: t.dashboard.monthlyRevenue, value: `${expectedMonthlyRevenue}`, icon: IndianRupeeIcon, trend: '+4.5%', positive: true },
     { title: t.dashboard.pendingPayments, value: pendingPayments.length, icon: AlertCircle, trend: '-2%', positive: false },
   ];
 

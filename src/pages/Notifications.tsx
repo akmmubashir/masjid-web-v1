@@ -35,7 +35,7 @@ export function Notifications() {
                         <span className="text-xs text-slate-500">2 {t.notifications.hoursAgo}</span>
                       </div>
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                        {t.notifications.automatedEmail} $50.
+                        {t.notifications.automatedEmail} ₹50.
                       </p>
                     </div>
                   </div>

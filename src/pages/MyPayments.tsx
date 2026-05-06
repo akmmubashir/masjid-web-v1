@@ -63,7 +63,7 @@ export function MyPayments() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <SummaryCard icon={<CheckCircle2 className="h-5 w-5 text-emerald-600" />} label={t.myPayments.totalContributed} value={`$${summary.totalPaid}`} tone="emerald" />
+        <SummaryCard icon={<CheckCircle2 className="h-5 w-5 text-emerald-600" />} label={t.myPayments.totalContributed} value={`₹${summary.totalPaid}`} tone="emerald" />
         <SummaryCard icon={<FileText className="h-5 w-5 text-slate-600" />} label={t.myPayments.totalRecords} value={String(summary.count)} />
         <SummaryCard icon={<Clock className="h-5 w-5 text-amber-600" />} label={t.myPayments.pending} value={String(summary.pending)} tone="amber" />
         <SummaryCard icon={<AlertCircle className="h-5 w-5 text-red-600" />} label={t.myPayments.overdue} value={String(summary.overdue)} tone="red" />
@@ -110,7 +110,7 @@ export function MyPayments() {
                   <Badge variant="outline">{p.type}</Badge>
                   <span className="text-xs text-slate-500">{p.method}</span>
                 </div>
-                <span className="font-bold text-slate-900 dark:text-white">${p.amount}</span>
+                <span className="font-bold text-slate-900 dark:text-white">₹{p.amount}</span>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-xs text-slate-500">{p.status === 'Paid' ? p.date : `Due ${p.dueDate}`}</p>
@@ -144,7 +144,7 @@ export function MyPayments() {
                 <tr key={p.id} className="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                   <td className="px-6 py-3 font-mono text-xs text-slate-700 dark:text-slate-200">{p.receiptNumber}</td>
                   <td className="px-6 py-3"><Badge variant="outline">{p.type}</Badge></td>
-                  <td className="px-6 py-3 font-medium text-slate-900 dark:text-white">${p.amount}</td>
+                  <td className="px-6 py-3 font-medium text-slate-900 dark:text-white">₹{p.amount}</td>
                   <td className="px-6 py-3 text-slate-600 dark:text-slate-300">{p.method}</td>
                   <td className="px-6 py-3 text-slate-600 dark:text-slate-300">{p.status === 'Paid' ? p.date : `Due ${p.dueDate}`}</td>
                   <td className="px-6 py-3"><Badge variant={statusBadge(p.status)}>{p.status}</Badge></td>
@@ -182,7 +182,7 @@ export function MyPayments() {
             </div>
             <div className="bg-slate-50 dark:bg-slate-800/50 rounded-md p-4 flex justify-between items-center">
               <span className="text-sm text-slate-600 dark:text-slate-300">{t.myPayments.amountPaid}</span>
-              <span className="font-bold text-2xl text-masjid-800 dark:text-masjid-400">${viewing.amount}</span>
+              <span className="font-bold text-2xl text-masjid-800 dark:text-masjid-400">₹{viewing.amount}</span>
             </div>
             <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3">
               <Button variant="ghost" onClick={() => setViewing(null)}>{t.common.close}</Button>

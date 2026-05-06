@@ -62,7 +62,7 @@ export function Subscriptions() {
 
               <div className="mt-5 flex items-baseline gap-2">
                 <span className="text-3xl font-bold text-slate-900 dark:text-white">
-                  ${currentPrice}
+                  ₹{currentPrice}
                 </span>
                 <span className="text-slate-500">
                   /
@@ -161,7 +161,7 @@ export function Subscriptions() {
                   </p>
                   <div className="mt-4 flex items-baseline">
                     <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
-                      ${price}
+                      ₹{price}
                     </span>
                     <span className="ml-1.5 text-slate-500">/{billingPreview === 'Yearly' ? t.subscriptions.year : t.subscriptions.month}</span>
                   </div>
@@ -233,7 +233,7 @@ export function Subscriptions() {
                       {inv.planName}
                     </td>
                     <td className="px-6 py-3 font-medium text-slate-900 dark:text-white">
-                      ${inv.amount}
+                      ₹{inv.amount}
                     </td>
                     <td className="px-6 py-3 text-slate-600 dark:text-slate-300">
                       {inv.paymentMethod}

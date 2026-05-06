@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Save, Info, Lock, Hash, Users as UsersIcon, DollarSign, QrCode } from 'lucide-react';
+import { Save, Info, Lock, Hash, Users as UsersIcon, IndianRupeeIcon, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '../components/ui/Core';
@@ -153,10 +153,10 @@ export function MyHouse() {
           <div className="flex flex-wrap justify-between items-center gap-4">
             <div className="flex items-center gap-3">
               <div className="rounded-full bg-masjid-50 dark:bg-masjid-900/30 p-3">
-                <DollarSign className="h-6 w-6 text-masjid-700 dark:text-masjid-400" />
+                <IndianRupeeIcon className="h-6 w-6 text-masjid-700 dark:text-masjid-400" />
               </div>
               <div>
-                <h3 className="font-bold text-2xl text-slate-900 dark:text-white">${myHouse.contributionAmount}</h3>
+                <h3 className="font-bold text-2xl text-slate-900 dark:text-white">₹{myHouse.contributionAmount}</h3>
                 <p className="text-sm text-slate-500">
                   {myHouse.contributionFrequency === 'Monthly' ? t.houses.perMonth : t.houses.perYear}
                 </p>

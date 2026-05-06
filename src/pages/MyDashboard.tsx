@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Home, CheckCircle2, AlertCircle, Megaphone,
-  Calendar, Users as UsersIcon, Info, DollarSign, Hash,
+  Calendar, Users as UsersIcon, Info, IndianRupeeIcon, Hash,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, Badge, Button } from '../components/ui/Core';
 import { useAppStore, useAuthStore } from '../stores';
@@ -80,10 +80,10 @@ export function MyDashboard() {
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <div className="flex items-center gap-3">
                 <div className="rounded-full bg-masjid-50 dark:bg-masjid-900/30 p-3">
-                  <DollarSign className="h-7 w-7 text-masjid-700 dark:text-masjid-400" />
+                  <IndianRupeeIcon className="h-7 w-7 text-masjid-700 dark:text-masjid-400" />
                 </div>
                 <div>
-                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white">${myHouse.contributionAmount}</h3>
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white">₹{myHouse.contributionAmount}</h3>
                   <p className="text-sm text-slate-500 mt-0.5">per {myHouse.contributionFrequency.toLowerCase()}</p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export function MyDashboard() {
             <div className="grid grid-cols-2 gap-4 mt-5 pt-4 border-t border-slate-100 dark:border-slate-800">
               <div>
                 <p className="text-xs text-slate-500 mb-1">{t.myDashboard.totalContributed}</p>
-                <p className="text-xl font-semibold text-slate-900 dark:text-white">${totalContributed}</p>
+                <p className="text-xl font-semibold text-slate-900 dark:text-white">₹{totalContributed}</p>
               </div>
               <div>
                 <p className="text-xs text-slate-500 mb-1">{t.myDashboard.records}</p>

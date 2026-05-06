@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft, Edit, Save, X, Trash2, Mail, Phone, PhoneCall,
-  MapPin, Calendar, Hash, Shield, KeyRound, Plus, DollarSign,
+  MapPin, Calendar, Hash, Shield, KeyRound, Plus, IndianRupeeIcon,
   Users as UsersIcon, FileText, QrCode, Download,
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
@@ -121,7 +121,7 @@ export function HouseDetail() {
             <QrCode className="h-4 w-4 mr-2" /> {t.houses.qrCode}
           </Button>
           <Button variant="outline" size="sm" onClick={() => setPaymentOpen(true)}>
-            <DollarSign className="h-4 w-4 mr-2" /> {t.houses.recordPayment}
+            <IndianRupeeIcon className="h-4 w-4 mr-2" /> {t.houses.recordPayment}
           </Button>
           {isEditing ? (
             <>
@@ -274,7 +274,7 @@ export function HouseDetail() {
                             <Badge variant="outline">{p.type}</Badge>
                             <span className="ml-2 text-xs text-slate-500">{p.method}</span>
                           </div>
-                          <span className="font-bold text-slate-900 dark:text-white">${p.amount}</span>
+                          <span className="font-bold text-slate-900 dark:text-white">₹{p.amount}</span>
                         </div>
                         <p className="text-xs text-slate-500">{p.date || `Due ${p.dueDate}`}</p>
                       </div>
@@ -299,7 +299,7 @@ export function HouseDetail() {
                           <tr key={p.id}>
                             <td className="px-2 py-2.5 font-mono text-xs text-slate-700 dark:text-slate-200">{p.receiptNumber}</td>
                             <td className="px-2 py-2.5"><Badge variant="outline">{p.type}</Badge></td>
-                            <td className="px-2 py-2.5 font-medium text-slate-900 dark:text-white">${p.amount}</td>
+                            <td className="px-2 py-2.5 font-medium text-slate-900 dark:text-white">₹{p.amount}</td>
                             <td className="px-2 py-2.5 text-slate-600 dark:text-slate-300">{p.method}</td>
                             <td className="px-2 py-2.5 text-slate-600 dark:text-slate-300">{p.date || `Due ${p.dueDate}`}</td>
                             <td className="px-2 py-2.5">
@@ -367,7 +367,7 @@ export function HouseDetail() {
               {isEditing ? (
                 <div className="space-y-4">
                   <Input
-                    label="Amount ($)"
+                    label="Amount (₹)"
                     type="number"
                     min="0"
                     value={draft.contributionAmount || ''}
@@ -383,10 +383,10 @@ export function HouseDetail() {
               ) : (
                 <div className="text-center py-2">
                   <div className="rounded-full bg-masjid-50 dark:bg-masjid-900/30 p-3 inline-flex mb-3">
-                    <DollarSign className="h-7 w-7 text-masjid-700 dark:text-masjid-400" />
+                    <IndianRupeeIcon className="h-7 w-7 text-masjid-700 dark:text-masjid-400" />
                   </div>
                   <div className="text-4xl font-bold text-slate-900 dark:text-white">
-                    ${house.contributionAmount}
+                    ₹{house.contributionAmount}
                   </div>
                   <p className="text-sm text-slate-500 mt-1">per {house.contributionFrequency.toLowerCase()}</p>
                 </div>
@@ -505,7 +505,7 @@ function RecordPaymentModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const payment: Payment = {
-      id: `p_${Date.now()}`,
+      id: `p_₹{Date.now()}`,
       receiptNumber: `RCP-${new Date().getFullYear()}-${String(existingCount + 1).padStart(3, '0')}`,
       houseId: house.id,
       amount: computedAmount,
@@ -568,7 +568,7 @@ function RecordPaymentModal({
                   Monthly Rate
                 </label>
                 <div className="h-10 px-3 rounded-md border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center text-sm font-medium text-slate-700 dark:text-slate-200">
-                  ${house.contributionAmount} / mo
+                  ₹{house.contributionAmount} / mo
                 </div>
               </div>
             </div>
@@ -576,16 +576,16 @@ function RecordPaymentModal({
               <div className="text-sm text-masjid-900 dark:text-masjid-200">
                 <span className="font-medium">Total</span>
                 <span className="text-slate-500 dark:text-slate-400 ml-2 text-xs">
-                  ${house.contributionAmount} × {draft.monthsCount || 1}{' '}
+                  ₹{house.contributionAmount} × {draft.monthsCount || 1}{' '}
                   {Number(draft.monthsCount) === 1 ? 'month' : 'months'}
                 </span>
               </div>
-              <div className="text-2xl font-bold text-masjid-800 dark:text-masjid-300">${computedAmount}</div>
+              <div className="text-2xl font-bold text-masjid-800 dark:text-masjid-300">₹{computedAmount}</div>
             </div>
           </div>
         ) : (
           <Input
-            label="Amount ($)"
+            label="Amount (₹)"
             type="number"
             required
             min="1"

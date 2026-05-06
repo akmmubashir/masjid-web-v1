@@ -105,7 +105,7 @@ export function Payments() {
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="font-medium text-slate-900 dark:text-white text-sm">{house?.name}</p>
-                  <p className="font-bold text-slate-900 dark:text-white">${payment.amount}</p>
+                  <p className="font-bold text-slate-900 dark:text-white">₹{payment.amount}</p>
                 </div>
                 <div className="flex justify-between items-center text-xs text-slate-500">
                   <span>{payment.method}</span>
@@ -142,7 +142,7 @@ export function Payments() {
                   <tr key={payment.id} className="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">{payment.receiptNumber}</td>
                     <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{house?.name}</td>
-                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">${payment.amount}</td>
+                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">₹{payment.amount}</td>
                     <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{payment.method}</td>
                     <td className="px-6 py-4 text-slate-600 dark:text-slate-300">
                       {payment.status === 'Paid' ? payment.date : `Due: ${payment.dueDate}`}
@@ -214,7 +214,7 @@ export function Payments() {
                 <div>
                   <label className="text-sm font-medium text-slate-700 dark:text-slate-300 block mb-1.5">{t.payments.monthlyRate}</label>
                   <div className="h-10 px-3 rounded-md border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center text-sm font-medium text-slate-700 dark:text-slate-200">
-                    ${selectedHouse?.contributionAmount || 0} / mo
+                    ₹{selectedHouse?.contributionAmount || 0} / mo
                   </div>
                 </div>
               </div>
@@ -222,16 +222,16 @@ export function Payments() {
                 <div className="text-sm text-masjid-900 dark:text-masjid-200">
                   <span className="font-medium">{t.payments.total}</span>
                   <span className="text-slate-500 dark:text-slate-400 ml-2 text-xs">
-                    ${selectedHouse?.contributionAmount || 0} × {newPayment.monthsCount || 1}{' '}
+                    ₹{selectedHouse?.contributionAmount || 0} × {newPayment.monthsCount || 1}{' '}
                     {Number(newPayment.monthsCount) === 1 ? t.payments.month : t.payments.months}
                   </span>
                 </div>
-                <div className="text-2xl font-bold text-masjid-800 dark:text-masjid-300">${computedAmount}</div>
+                <div className="text-2xl font-bold text-masjid-800 dark:text-masjid-300">₹{computedAmount}</div>
               </div>
             </div>
           ) : (
             <Input
-              label={`${t.payments.amount} ($)`}
+              label={`${t.payments.amount} (₹)`}
               type="number" required min="1"
               value={newPayment.amount || ''}
               onChange={(e) => setNewPayment({ ...newPayment, amount: Number(e.target.value) })}

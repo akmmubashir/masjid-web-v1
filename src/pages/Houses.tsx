@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Plus, Search, Edit, Trash2, Eye,
-  Shield, DollarSign, Users as UsersIcon, Home,
+  Shield, IndianRupeeIcon, Users as UsersIcon, Home,
 } from 'lucide-react';
 import { useAppStore } from '../stores';
 import { Modal } from '../components/ui/Modal';
@@ -38,7 +38,7 @@ export function Houses() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     const house: House = {
-      id: `h_${Date.now()}`,
+      id: `h_₹{Date.now()}`,
       mahalHouseNumber: draft.mahalHouseNumber || '',
       name: draft.name || '',
       headOfFamily: draft.headOfFamily || '',
@@ -148,7 +148,7 @@ export function Houses() {
                       {house.members.length} {t.houses.members}
                     </span>
                     <span className="flex items-center gap-1">
-                      <DollarSign className="h-3.5 w-3.5 text-slate-400" />
+                      <IndianRupeeIcon className="h-3.5 w-3.5 text-slate-400" />
                       {house.contributionAmount}/{house.contributionFrequency === 'Monthly' ? 'mo' : 'yr'}
                     </span>
                     {house.guardianUserId && (
@@ -230,7 +230,7 @@ export function Houses() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="font-medium text-slate-900 dark:text-white flex items-center">
-                          <DollarSign className="h-3.5 w-3.5 text-slate-400" />
+                          <IndianRupeeIcon className="h-3.5 w-3.5 text-slate-400" />
                           {house.contributionAmount}
                         </div>
                         <div className="text-xs text-slate-500">
@@ -338,12 +338,12 @@ export function Houses() {
           />
           <div className="bg-masjid-50 dark:bg-masjid-900/20 border border-masjid-100 dark:border-masjid-800 rounded-md p-4">
             <label className="text-sm font-medium text-masjid-900 dark:text-masjid-200 flex items-center mb-3">
-              <DollarSign className="h-4 w-4 mr-1.5" />
+              <IndianRupeeIcon className="h-4 w-4 mr-1.5" />
               {t.houses.contributionAmount}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
-                label={`${t.payments.amount} ($)`}
+                label={`${t.payments.amount} (₹)`}
                 type="number"
                 min="0"
                 required
