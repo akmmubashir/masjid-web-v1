@@ -15,8 +15,10 @@ import { Modal } from '../components/ui/Modal';
 import { useAppStore } from '../stores';
 import { House, Payment } from '../lib/types';
 import { MembersList } from '../components/houses/MembersList';
+import { useT } from '../lib/useT';
 
 export function HouseDetail() {
+  const t = useT();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const {
@@ -40,10 +42,10 @@ export function HouseDetail() {
     return (
       <Card className="max-w-xl mx-auto mt-12">
         <CardContent className="p-8 text-center">
-          <h2 className="font-serif text-xl font-semibold mb-2">House Not Found</h2>
-          <p className="text-sm text-slate-500 mb-4">The house you're looking for doesn't exist.</p>
+          <h2 className="font-serif text-xl font-semibold mb-2">{t.houses.houseNotFound}</h2>
+          <p className="text-sm text-slate-500 mb-4">{t.houses.houseNotFoundDesc}</p>
           <Button onClick={() => navigate('/houses')}>
-            <ArrowLeft className="h-4 w-4 mr-2" /> Back to Houses
+            <ArrowLeft className="h-4 w-4 mr-2" /> {t.houses.backToHouses}
           </Button>
         </CardContent>
       </Card>
@@ -116,28 +118,28 @@ export function HouseDetail() {
         {/* Action buttons — stack on mobile */}
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={() => setQrOpen(true)}>
-            <QrCode className="h-4 w-4 mr-2" /> QR Code
+            <QrCode className="h-4 w-4 mr-2" /> {t.houses.qrCode}
           </Button>
           <Button variant="outline" size="sm" onClick={() => setPaymentOpen(true)}>
-            <DollarSign className="h-4 w-4 mr-2" /> Record Payment
+            <DollarSign className="h-4 w-4 mr-2" /> {t.houses.recordPayment}
           </Button>
           {isEditing ? (
             <>
               <Button variant="ghost" size="sm" onClick={handleCancelEdit}>
-                <X className="h-4 w-4 mr-2" /> Cancel
+                <X className="h-4 w-4 mr-2" /> {t.common.cancel}
               </Button>
               <Button size="sm" onClick={handleSave}>
-                <Save className="h-4 w-4 mr-2" /> Save
+                <Save className="h-4 w-4 mr-2" /> {t.common.save}
               </Button>
             </>
           ) : (
             <>
               <Button variant="outline" size="sm" onClick={handleDelete}>
                 <Trash2 className="h-4 w-4 mr-2 text-red-500" />
-                <span className="text-red-500">Delete</span>
+                <span className="text-red-500">{t.common.delete}</span>
               </Button>
               <Button size="sm" onClick={() => setIsEditing(true)}>
-                <Edit className="h-4 w-4 mr-2" /> Edit
+                <Edit className="h-4 w-4 mr-2" /> {t.common.edit}
               </Button>
             </>
           )}
@@ -151,67 +153,67 @@ export function HouseDetail() {
           {/* House details */}
           <Card>
             <CardHeader>
-              <CardTitle>House Details</CardTitle>
+              <CardTitle>{t.houses.houseDetails}</CardTitle>
             </CardHeader>
             <CardContent>
               {isEditing ? (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
-                      label="Mahal House No."
+                      label={t.houses.mahalHouseNo}
                       value={draft.mahalHouseNumber || ''}
                       onChange={(e) => setDraft({ ...draft, mahalHouseNumber: e.target.value })}
                     />
                     <Input
-                      label="House Name"
+                      label={t.houses.houseName}
                       value={draft.name || ''}
                       onChange={(e) => setDraft({ ...draft, name: e.target.value })}
                     />
                   </div>
                   <Input
-                    label="Head of Family"
+                    label={t.houses.headOfFamily}
                     value={draft.headOfFamily || ''}
                     onChange={(e) => setDraft({ ...draft, headOfFamily: e.target.value })}
                   />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
-                      label="Contact Number"
+                      label={t.houses.contactNumber}
                       value={draft.contactNumber || ''}
                       onChange={(e) => setDraft({ ...draft, contactNumber: e.target.value })}
                     />
                     <Input
-                      label="Alternate Number"
+                      label={t.houses.alternateNumber}
                       value={draft.alternateNumber || ''}
                       onChange={(e) => setDraft({ ...draft, alternateNumber: e.target.value })}
                     />
                   </div>
                   <Input
-                    label="Email"
+                    label={t.houses.email}
                     type="email"
                     value={draft.email || ''}
                     onChange={(e) => setDraft({ ...draft, email: e.target.value })}
                   />
                   <Input
-                    label="Address"
+                    label={t.houses.address}
                     value={draft.address || ''}
                     onChange={(e) => setDraft({ ...draft, address: e.target.value })}
                   />
                   <Select
-                    label="Status"
-                    options={[{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }]}
+                    label={t.common.status}
+                    options={[{ label: t.common.active, value: 'Active' }, { label: t.common.inactive, value: 'Inactive' }]}
                     value={draft.status || 'Active'}
                     onChange={(e) => setDraft({ ...draft, status: e.target.value as any })}
                   />
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
-                  <DetailRow icon={<UsersIcon className="h-4 w-4" />} label="Head of Family" value={house.headOfFamily} />
-                  <DetailRow icon={<UsersIcon className="h-4 w-4" />} label="Members" value={String(house.members.length)} />
-                  <DetailRow icon={<Phone className="h-4 w-4" />} label="Contact" value={house.contactNumber} />
-                  <DetailRow icon={<PhoneCall className="h-4 w-4" />} label="Alternate" value={house.alternateNumber || '—'} />
-                  <DetailRow icon={<Mail className="h-4 w-4" />} label="Email" value={house.email} />
-                  <DetailRow icon={<Calendar className="h-4 w-4" />} label="Joined" value={house.joinedDate} />
-                  <DetailRow icon={<MapPin className="h-4 w-4" />} label="Address" value={house.address} full />
+                  <DetailRow icon={<UsersIcon className="h-4 w-4" />} label={t.houses.headOfFamily} value={house.headOfFamily} />
+                  <DetailRow icon={<UsersIcon className="h-4 w-4" />} label={t.houses.members} value={String(house.members.length)} />
+                  <DetailRow icon={<Phone className="h-4 w-4" />} label={t.houses.contact} value={house.contactNumber} />
+                  <DetailRow icon={<PhoneCall className="h-4 w-4" />} label={t.houses.alternateNumber} value={house.alternateNumber || '—'} />
+                  <DetailRow icon={<Mail className="h-4 w-4" />} label={t.houses.email} value={house.email} />
+                  <DetailRow icon={<Calendar className="h-4 w-4" />} label={t.houses.joinedDate} value={house.joinedDate} />
+                  <DetailRow icon={<MapPin className="h-4 w-4" />} label={t.houses.address} value={house.address} full />
                 </div>
               )}
             </CardContent>
@@ -222,7 +224,7 @@ export function HouseDetail() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <UsersIcon className="h-5 w-5 mr-2 text-masjid-600" />
-                Family Members
+                {t.houses.familyMembers}
                 <Badge variant="default" className="ml-3">{house.members.length}</Badge>
               </CardTitle>
             </CardHeader>
@@ -241,7 +243,7 @@ export function HouseDetail() {
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="flex items-center">
                 <FileText className="h-5 w-5 mr-2 text-masjid-600" />
-                Payment History
+                {t.houses.paymentHistory}
               </CardTitle>
               <Button size="sm" onClick={() => setPaymentOpen(true)}>
                 <Plus className="h-4 w-4 mr-2" /> Record
@@ -249,7 +251,7 @@ export function HouseDetail() {
             </CardHeader>
             <CardContent>
               {housePayments.length === 0 ? (
-                <p className="text-sm text-slate-500 text-center py-6">No payments recorded yet.</p>
+                <p className="text-sm text-slate-500 text-center py-6">{t.houses.noPayments}</p>
               ) : (
                 <>
                   {/* Mobile payment cards */}
@@ -323,7 +325,7 @@ export function HouseDetail() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <QrCode className="h-5 w-5 mr-2 text-masjid-600" />
-                House QR Code
+                {t.houses.qrCode}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -350,7 +352,7 @@ export function HouseDetail() {
                   className="w-full"
                   onClick={() => setQrOpen(true)}
                 >
-                  <Download className="h-3.5 w-3.5 mr-2" /> Full Size
+                  <Download className="h-3.5 w-3.5 mr-2" /> {t.houses.fullSize}
                 </Button>
               </div>
             </CardContent>
@@ -359,7 +361,7 @@ export function HouseDetail() {
           {/* Contribution */}
           <Card>
             <CardHeader>
-              <CardTitle>Contribution</CardTitle>
+              <CardTitle>{t.houses.contribution}</CardTitle>
             </CardHeader>
             <CardContent>
               {isEditing ? (
@@ -397,7 +399,7 @@ export function HouseDetail() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Shield className="h-5 w-5 mr-2 text-masjid-600" />
-                Guardian Account
+                {t.houses.guardianAccount}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -408,13 +410,13 @@ export function HouseDetail() {
                     <p className="text-sm text-slate-500">{guardian.email}</p>
                   </div>
                   <Button variant="outline" size="sm" className="w-full">
-                    <KeyRound className="h-3.5 w-3.5 mr-2" /> Send Password Reset
+                    <KeyRound className="h-3.5 w-3.5 mr-2" /> {t.houses.sendPasswordReset}
                   </Button>
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <p className="text-sm text-slate-500">No guardian login linked.</p>
-                  <Button variant="primary" size="sm" className="w-full">Invite Guardian</Button>
+                  <p className="text-sm text-slate-500">{t.houses.noGuardian}</p>
+                  <Button variant="primary" size="sm" className="w-full">{t.houses.inviteGuardian}</Button>
                 </div>
               )}
             </CardContent>
@@ -447,7 +449,7 @@ export function HouseDetail() {
               {qrPayload}
             </div>
             <p className="text-xs text-slate-400 text-center">
-              Scan this QR code to quickly identify the house during payment collection.
+              {t.houses.qrDesc}
             </p>
           </div>
         </Modal>

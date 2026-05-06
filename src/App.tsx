@@ -52,6 +52,7 @@ function App() {
             <Route path="house" element={<MyHouse />} />
             <Route path="payments" element={<MyPayments />} />
             <Route path="profile" element={<MyProfile />} />
+            <Route path="announcements" element={<Announcements />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
 
