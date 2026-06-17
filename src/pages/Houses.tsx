@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Plus, Search, Edit, Trash2, Eye,
-  Shield, IndianRupeeIcon, Users as UsersIcon, Home,
+  IndianRupeeIcon, Users as UsersIcon, Home,
 } from 'lucide-react';
 import { useAppStore } from '../stores';
 import { Modal } from '../components/ui/Modal';
@@ -38,11 +38,10 @@ export function Houses() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     const house: House = {
-      id: `h_₹{Date.now()}`,
+      id: `h_${Date.now()}`,
       mahalHouseNumber: draft.mahalHouseNumber || '',
       name: draft.name || '',
       headOfFamily: draft.headOfFamily || '',
-      guardianUserId: draft.guardianUserId,
       contactNumber: draft.contactNumber || '',
       alternateNumber: draft.alternateNumber,
       email: draft.email || '',
@@ -151,9 +150,6 @@ export function Houses() {
                       <IndianRupeeIcon className="h-3.5 w-3.5 text-slate-400" />
                       {house.contributionAmount}/{house.contributionFrequency === 'Monthly' ? 'mo' : 'yr'}
                     </span>
-                    {house.guardianUserId && (
-                      <Shield className="h-3.5 w-3.5 text-masjid-600" />
-                    )}
                   </div>
 
                   <p className="text-xs text-slate-500 truncate">{house.headOfFamily}</p>
@@ -194,7 +190,6 @@ export function Houses() {
                   <tr>
                     <th className="px-6 py-4 font-medium">{t.houses.mahalNo}</th>
                     <th className="px-6 py-4 font-medium">{t.houses.house}</th>
-                    <th className="px-6 py-4 font-medium">{t.houses.guardian}</th>
                     <th className="px-6 py-4 font-medium">{t.houses.contact}</th>
                     <th className="px-6 py-4 font-medium">{t.houses.contribution}</th>
                     <th className="px-6 py-4 font-medium">{t.common.status}</th>
@@ -218,12 +213,7 @@ export function Houses() {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-slate-600 dark:text-slate-300">
-                        <div className="flex items-center gap-2">
-                          {house.headOfFamily}
-                          {house.guardianUserId && (
-                            <Shield className="h-3.5 w-3.5 text-masjid-600" />
-                          )}
-                        </div>
+                        {house.headOfFamily}
                       </td>
                       <td className="px-6 py-4 text-slate-600 dark:text-slate-300">
                         {house.contactNumber}
@@ -305,7 +295,7 @@ export function Houses() {
             />
           </div>
           <Input
-            label={`${t.houses.headOfFamily} / ${t.houses.guardian}`}
+            label={t.houses.headOfFamily}
             required
             value={draft.headOfFamily || ''}
             onChange={(e) => setDraft({ ...draft, headOfFamily: e.target.value })}

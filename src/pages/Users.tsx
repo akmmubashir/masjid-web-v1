@@ -25,6 +25,8 @@ const ALL_PERMISSIONS: { id: Permission; label: string; group: string }[] = [
 export function Users() {
   const t = useT();
   const { users, roles, addUser, updateUser, deleteUser, addRole, updateRole, deleteRole } = useAppStore();
+  const manageableUsers = users.filter((user) => user.role !== 'Guardian');
+  const manageableRoles = roles.filter((role) => role.name !== 'Guardian');
   const [activeTab, setActiveTab] = useState<'users' | 'roles'>('users');
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -65,7 +67,7 @@ export function Users() {
 
   const handleDeleteRole = (role: RoleDefinition) => {
     if (role.isSystem) { toast.error(t.users.cannotDeleteSystem); return; }
-    const count = users.filter((u) => u.role === role.name).length;
+    const count = manageableUsers.filter((u) => u.role === role.name).length;
     if (count > 0) { toast.error(`${count} ${t.users.usersAssigned}`); return; }
     if (confirm(`${t.users.deleteRoleConfirm} ${role.name}?`)) { deleteRole(role.id); toast.success(t.users.roleDeleted); }
   };
@@ -109,7 +111,7 @@ export function Users() {
         <Card>
           {/* Mobile */}
           <div className="sm:hidden divide-y divide-slate-100 dark:divide-slate-800">
-            {users.map((user) => (
+            {manageableUsers.map((user) => (
               <div key={user.id} className="p-4 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="h-9 w-9 shrink-0 rounded-full bg-masjid-100 dark:bg-masjid-900/50 flex items-center justify-center text-masjid-700 dark:text-masjid-300 font-medium">
@@ -143,7 +145,7 @@ export function Users() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                {users.map((user) => (
+                {manageableUsers.map((user) => (
                   <tr key={user.id} className="bg-white dark:bg-surface-dark hover:bg-slate-50 dark:hover:bg-slate-800/50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
@@ -181,8 +183,8 @@ export function Users() {
 
       {activeTab === 'roles' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {roles.map((role) => {
-            const userCount = users.filter((u) => u.role === role.name).length;
+          {manageableRoles.map((role) => {
+            const userCount = manageableUsers.filter((u) => u.role === role.name).length;
             return (
               <Card key={role.id} className="flex flex-col">
                 <div className="p-5 flex-1">
@@ -227,7 +229,7 @@ export function Users() {
             <div className="grid grid-cols-2 gap-4">
               <Select
                 label={t.users.role} required
-                options={roles.map((r) => ({ label: r.name, value: r.name }))}
+                options={manageableRoles.map((r) => ({ label: r.name, value: r.name }))}
                 value={userDraft.role || ''}
                 onChange={(e) => setUserDraft({ ...userDraft, role: e.target.value })}
               />

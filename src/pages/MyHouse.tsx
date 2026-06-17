@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Save, Info, Lock, Hash, Users as UsersIcon, IndianRupeeIcon, QrCode } from 'lucide-react';
+import { Save, Info, Lock, Hash, IndianRupeeIcon, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '../components/ui/Core';
 import { Modal } from '../components/ui/Modal';
 import { useAppStore, useAuthStore } from '../stores';
 import { House } from '../lib/types';
-import { MembersList } from '../components/houses/MembersList';
 import { useT } from '../lib/useT';
 
 export function MyHouse() {
   const t = useT();
   const { user } = useAuthStore();
-  const { houses, updateHouse, addMember, updateMember, removeMember } = useAppStore();
+  const { houses, updateHouse } = useAppStore();
   const myHouse = houses.find((h) => h.id === user?.houseId);
   const [draft, setDraft] = useState<Partial<House>>({});
   const [qrOpen, setQrOpen] = useState(false);
@@ -91,25 +90,6 @@ export function MyHouse() {
               </Button>
             </div>
           </form>
-        </CardContent>
-      </Card>
-
-      {/* Family Members */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <UsersIcon className="h-5 w-5 mr-2 text-masjid-600" />
-            {t.houses.familyMembers}
-            <Badge variant="default" className="ml-3">{myHouse.members.length}</Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <MembersList
-            members={myHouse.members}
-            onAdd={(m) => { addMember(myHouse.id, m); toast.success(`${m.name} added`); }}
-            onUpdate={(id, u) => { updateMember(myHouse.id, id, u); toast.success('Member updated'); }}
-            onRemove={(id) => { removeMember(myHouse.id, id); toast.success('Member removed'); }}
-          />
         </CardContent>
       </Card>
 

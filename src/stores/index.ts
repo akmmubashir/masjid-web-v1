@@ -24,32 +24,17 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
       login: (email, role = 'Admin') => {
-        if (role === 'Guardian') {
-          set({
-            user: {
-              id: 'u_g1',
-              name: 'Tariq Ahmed',
-              email: email || 'tariq@example.com',
-              role: 'Guardian',
-              lastActive: new Date().toISOString(),
-              status: 'Active',
-              houseId: 'h_1',
-            },
-            isAuthenticated: true,
-          });
-        } else {
-          set({
-            user: {
-              id: 'u_1',
-              name: 'Admin User',
-              email: email || 'admin@masjid.com',
-              role,
-              lastActive: new Date().toISOString(),
-              status: 'Active',
-            },
-            isAuthenticated: true,
-          });
-        }
+        set({
+          user: {
+            id: 'u_1',
+            name: 'Admin User',
+            email: email || 'admin@masjid.com',
+            role,
+            lastActive: new Date().toISOString(),
+            status: 'Active',
+          },
+          isAuthenticated: true,
+        });
       },
       logout: () => set({ user: null, isAuthenticated: false }),
     }),

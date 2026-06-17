@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   ArrowLeft, Edit, Save, X, Trash2, Mail, Phone, PhoneCall,
-  MapPin, Calendar, Hash, Shield, KeyRound, Plus, IndianRupeeIcon,
+  MapPin, Calendar, Hash, Plus, IndianRupeeIcon,
   Users as UsersIcon, FileText, QrCode, Download,
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from 'sonner';
 import {
   Button, Card, CardContent, CardHeader, CardTitle,
-  Input, Select, Badge, cn,
+  Input, Select, Badge,
 } from '../components/ui/Core';
 import { Modal } from '../components/ui/Modal';
 import { useAppStore } from '../stores';
 import { House, Payment } from '../lib/types';
-import { MembersList } from '../components/houses/MembersList';
 import { useT } from '../lib/useT';
 
 export function HouseDetail() {
@@ -22,9 +21,8 @@ export function HouseDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const {
-    houses, payments, users,
+    houses, payments,
     updateHouse, deleteHouse,
-    addMember, updateMember, removeMember,
     addPayment,
   } = useAppStore();
 
@@ -52,12 +50,11 @@ export function HouseDetail() {
     );
   }
 
-  const guardian = users.find((u) => u.id === house.guardianUserId);
   const housePayments = payments
     .filter((p) => p.houseId === house.id)
     .sort((a, b) => (b.date || b.dueDate).localeCompare(a.date || a.dueDate));
 
-  // QR payload — compact JSON the guardian can scan to identify the house
+  // QR payload — compact JSON for quick house identification
   const qrPayload = JSON.stringify({
     id: house.id,
     mahalNo: house.mahalHouseNumber,
@@ -219,25 +216,6 @@ export function HouseDetail() {
             </CardContent>
           </Card>
 
-          {/* Family members */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <UsersIcon className="h-5 w-5 mr-2 text-masjid-600" />
-                {t.houses.familyMembers}
-                <Badge variant="default" className="ml-3">{house.members.length}</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <MembersList
-                members={house.members}
-                onAdd={(m) => { addMember(house.id, m); toast.success(`${m.name} added`); }}
-                onUpdate={(mid, u) => { updateMember(house.id, mid, u); toast.success('Member updated'); }}
-                onRemove={(mid) => { removeMember(house.id, mid); toast.success('Member removed'); }}
-              />
-            </CardContent>
-          </Card>
-
           {/* Payment history */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
@@ -394,33 +372,6 @@ export function HouseDetail() {
             </CardContent>
           </Card>
 
-          {/* Guardian */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Shield className="h-5 w-5 mr-2 text-masjid-600" />
-                {t.houses.guardianAccount}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {guardian ? (
-                <div className="space-y-3">
-                  <div>
-                    <p className="font-medium text-slate-900 dark:text-white">{guardian.name}</p>
-                    <p className="text-sm text-slate-500">{guardian.email}</p>
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full">
-                    <KeyRound className="h-3.5 w-3.5 mr-2" /> {t.houses.sendPasswordReset}
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <p className="text-sm text-slate-500">{t.houses.noGuardian}</p>
-                  <Button variant="primary" size="sm" className="w-full">{t.houses.inviteGuardian}</Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-export type Role = 'Admin' | 'Staff' | 'Viewer' | 'Guardian';
+export type Role = 'Admin' | 'Staff' | 'Viewer';
 
 export type Permission =
 'houses.view' |

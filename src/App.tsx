@@ -16,10 +16,6 @@ const Reports = lazy(() => import('./pages/Reports').then(m => ({ default: m.Rep
 const Subscriptions = lazy(() => import('./pages/Subscriptions').then(m => ({ default: m.Subscriptions })));
 const Settings = lazy(() => import('./pages/Settings').then(m => ({ default: m.Settings })));
 const Notifications = lazy(() => import('./pages/Notifications').then(m => ({ default: m.Notifications })));
-const MyDashboard = lazy(() => import('./pages/MyDashboard').then(m => ({ default: m.MyDashboard })));
-const MyHouse = lazy(() => import('./pages/MyHouse').then(m => ({ default: m.MyHouse })));
-const MyPayments = lazy(() => import('./pages/MyPayments').then(m => ({ default: m.MyPayments })));
-const MyProfile = lazy(() => import('./pages/MyProfile').then(m => ({ default: m.MyProfile })));
 
 function App() {
   return (
@@ -32,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          {/* Admin routes */}
+          {/* Masjid admin routes */}
           <Route element={<DashboardShell />}>
             <Route index element={<Dashboard />} />
             <Route path="houses" element={<Houses />} />
@@ -43,16 +39,6 @@ function App() {
             <Route path="reports" element={<Reports />} />
             <Route path="subscriptions" element={<Subscriptions />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="notifications" element={<Notifications />} />
-          </Route>
-
-          {/* Guardian / member routes */}
-          <Route path="my" element={<DashboardShell />}>
-            <Route index element={<MyDashboard />} />
-            <Route path="house" element={<MyHouse />} />
-            <Route path="payments" element={<MyPayments />} />
-            <Route path="profile" element={<MyProfile />} />
-            <Route path="announcements" element={<Announcements />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, Home, CreditCard, BookOpen, Bell,
-  Megaphone, FileText, Users, Settings, MoonStar, User as UserIcon,
+  Megaphone, FileText, Users, Settings, MoonStar,
 } from 'lucide-react';
 import { cn } from '../ui/Core';
 import { useAuthStore } from '../../stores';
@@ -10,7 +10,6 @@ import { useT } from '../../lib/useT';
 export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v: boolean) => void }) {
   const { user, logout } = useAuthStore();
   const t = useT();
-  const isGuardian = user?.role === 'Guardian';
 
   const adminNav = [
     { section: 'Overview', items: [{ name: t.nav.dashboard, path: '/', icon: LayoutDashboard }] },
@@ -31,21 +30,6 @@ export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v:
       { name: t.nav.settings, path: '/settings', icon: Settings },
     ]},
   ];
-
-  const guardianNav = [
-    { section: 'Overview', items: [{ name: t.nav.myDashboard, path: '/my', icon: LayoutDashboard }] },
-    { section: 'My Account', items: [
-      { name: t.nav.myHouse, path: '/my/house', icon: Home },
-      { name: t.nav.myPayments, path: '/my/payments', icon: CreditCard },
-      { name: t.nav.profile, path: '/my/profile', icon: UserIcon },
-    ]},
-    { section: 'Updates', items: [
-      { name: t.nav.announcements, path: '/my/announcements', icon: Megaphone },
-      { name: t.nav.notifications, path: '/my/notifications', icon: Bell },
-    ]},
-  ];
-
-  const navItems = isGuardian ? guardianNav : adminNav;
   return (
     <>
       {isOpen &&
@@ -67,16 +51,11 @@ export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v:
             <span className="font-serif text-xl font-bold text-white tracking-wide block leading-tight">
               MOSQLY
             </span>
-            {isGuardian && (
-            <span className="text-[10px] uppercase tracking-wider text-gold-500">
-                {t.nav.guardianPortal}
-              </span>
-            )}
           </div>
         </div>
 
         <div className="flex-1 overflow-y-auto py-4 px-3 space-y-6">
-          {navItems.map((group, i) =>
+          {adminNav.map((group, i) =>
           <div key={i}>
               <h3 className="px-3 text-xs font-semibold uppercase tracking-wider text-masjid-400 mb-2">
                 {group.section}
@@ -88,7 +67,7 @@ export function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v:
                   <NavLink
                     key={item.name}
                     to={item.path}
-                    end={item.path === '/' || item.path === '/my'}
+                    end={item.path === '/'}
                     onClick={() =>
                     window.innerWidth < 1024 && setIsOpen(false)
                     }

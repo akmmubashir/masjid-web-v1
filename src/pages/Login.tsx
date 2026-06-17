@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { MoonStar, Shield, Home as HomeIcon } from 'lucide-react';
+import { MoonStar, Shield } from 'lucide-react';
 import { useAuthStore } from '../stores';
-import { Button, Input, cn } from '../components/ui/Core';
+import { Button, Input } from '../components/ui/Core';
 import { useT } from '../lib/useT';
-
-type LoginMode = 'admin' | 'guardian';
 
 export function Login() {
   const t = useT();
-  const defaultEmails: Record<LoginMode, string> = {
-    admin: 'admin@masjid.com',
-    guardian: 'tariq@example.com',
-  };
-
-  const [mode, setMode] = useState<LoginMode>('admin');
-  const [email, setEmail] = useState(defaultEmails['admin']);
+  const [email, setEmail] = useState('admin@masjid.com');
   const [password, setPassword] = useState('password');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuthStore();
@@ -27,13 +19,8 @@ export function Login() {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
-      if (mode === 'guardian') {
-        login(email || 'tariq@example.com', 'Guardian');
-        navigate(fromState && fromState.startsWith('/my') ? fromState : '/my', { replace: true });
-      } else {
-        login(email || 'admin@masjid.com', 'Admin');
-        navigate(fromState && !fromState.startsWith('/my') ? fromState : '/', { replace: true });
-      }
+      login(email || 'admin@masjid.com', 'Admin');
+      navigate(fromState && !fromState.startsWith('/login') ? fromState : '/', { replace: true });
     }, 700);
   };
 
@@ -67,28 +54,12 @@ export function Login() {
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{t.login.subtitle}</p>
           </div>
 
-          {/* Role tabs */}
-          <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg mb-6">
-            <button
-              type="button"
-              onClick={() => { setMode('admin'); setEmail(defaultEmails['admin']); }}
-              className={cn(
-                'flex items-center justify-center py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                mode === 'admin' ? 'bg-white dark:bg-slate-700 text-masjid-800 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400'
-              )}
-            >
-              <Shield className="h-4 w-4 mr-2" /> {t.login.masjidAdmin}
-            </button>
-            <button
-              type="button"
-              onClick={() => { setMode('guardian'); setEmail(defaultEmails['guardian']); }}
-              className={cn(
-                'flex items-center justify-center py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                mode === 'guardian' ? 'bg-white dark:bg-slate-700 text-masjid-800 dark:text-white shadow-sm' : 'text-slate-600 dark:text-slate-400'
-              )}
-            >
-              <HomeIcon className="h-4 w-4 mr-2" /> {t.login.houseGuardian}
-            </button>
+          <div className="mb-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-4 flex items-center gap-3">
+            <Shield className="h-5 w-5 text-masjid-700 dark:text-gold-500 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-slate-900 dark:text-white">{t.login.masjidAdmin}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Admin access only</p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,7 +69,7 @@ export function Login() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={mode === 'admin' ? 'admin@masjid.com' : 'tariq@example.com'}
+              placeholder="admin@masjid.com"
             />
             <div className="space-y-1">
               <Input
@@ -116,7 +87,7 @@ export function Login() {
               </div>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? t.login.signingIn : `${t.login.signInAs} ${mode === 'admin' ? t.login.admin : t.login.guardian}`}
+              {isLoading ? t.login.signingIn : `${t.login.signInAs} ${t.login.admin}`}
             </Button>
           </form>
 

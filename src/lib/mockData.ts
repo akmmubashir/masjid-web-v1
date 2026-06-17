@@ -40,7 +40,7 @@ export const mockSaaSPlans: SaaSPlan[] = [
   'Up to 500 houses',
   'Up to 10 staff accounts',
   'Everything in Starter',
-  'Guardian portal access',
+  'House access management',
   'Announcements & notifications',
   'PDF receipts & exports',
   'Priority email support'],
@@ -746,13 +746,6 @@ export const mockRoles: RoleDefinition[] = [
   isSystem: true
 },
 {
-  id: 'role_guardian',
-  name: 'Guardian',
-  description: 'Limited access to own house data only.',
-  permissions: [],
-  isSystem: true
-},
-{
   id: 'role_accountant',
   name: 'Accountant',
   description: 'Access to financial records and reports.',
@@ -809,33 +802,7 @@ export const mockUsers: User[] = [
   lastActive: '2024-05-22T10:00:00Z',
   status: 'Active'
 },
-{
-  id: 'u_g1',
-  name: 'Tariq Ahmed',
-  email: 'tariq@example.com',
-  role: 'Guardian',
-  lastActive: '2024-05-25T08:00:00Z',
-  status: 'Active',
-  houseId: 'h_1'
-},
-{
-  id: 'u_g2',
-  name: 'Imran Khan',
-  email: 'imran@example.com',
-  role: 'Guardian',
-  lastActive: '2024-05-24T18:00:00Z',
-  status: 'Active',
-  houseId: 'h_2'
-},
-{
-  id: 'u_g3',
-  name: 'Omar Siddiqui',
-  email: 'omar@example.com',
-  role: 'Guardian',
-  lastActive: '2024-05-23T12:00:00Z',
-  status: 'Active',
-  houseId: 'h_3'
-}];
+];
 
 
 export const mockRevenueData: RevenueDataPoint[] = [
